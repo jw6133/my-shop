@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Nav';
+import { Outlet } from 'react-router-dom';
+import { AuthContextProvider } from './context/AuthContext';
+import { GoogleAuthProvider } from 'firebase/auth';
+import {Globalstyle} from './style/GlobalStyle';
 
+//outlet 상위 경로에서 하위경로 요소 구성
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <AuthContextProvider>
+      {/* <GlobalStyle/> */}
+      <Nav/>
+      <Outlet/>
+    </AuthContextProvider>
+    </>
   );
 }
 
