@@ -93,3 +93,15 @@ export async function addProducts(product,image){
         image,
     })
 }
+
+//database 상품 가져오기
+export async function getProducts(){
+    //async = 비동기 방식의 데이터 처리방법(promise의 단점을 보완한 최신 비동기처리방식 코드
+
+    const snapshot = await get(ref(database, 'products'));
+    if(snapshot.exists()){
+        return Object.values(snapshot.val())
+    }else{
+        return []
+    }
+}
