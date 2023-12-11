@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { googleLogOut, googleLogin, onUserState } from '../api/firebase';
 import { useState } from 'react';
 import UserData from './UserData';
+import { LuPencil } from "react-icons/lu";
 
 function Nav() {
     const [user,setUser] = useState();
@@ -29,7 +30,7 @@ function Nav() {
 
             <div className='userWrap'>
                 {user&&user.isAdmin&&(
-                    <Link to='/product/upload'>업로드</Link>
+                    <Link to='/product/upload' className='uploadBtn'><LuPencil /></Link>
                 )}
                 {user?(
                     <>
@@ -52,6 +53,7 @@ const HeaderContainer = styled.header`
     align-items:center;
     padding:12px;
     gap:24px;
+    border-bottom:solid 1px rgba(0,0,0,0.1);
 
     .userWrap{
         display:flex;
@@ -64,6 +66,9 @@ const HeaderContainer = styled.header`
             &.loginBtn{
                 background:pink
             }
+        }
+        .uploadBtn{
+
         }
     }
 `
