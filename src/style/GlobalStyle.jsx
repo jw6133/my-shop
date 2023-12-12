@@ -55,9 +55,10 @@ img{
 	display: block;
 	width: 100%;
 }
-button{
-    border:none;
-    outline:none;
-    background:transparent;
+.container{
+    max-width:1000px;
+    margin:0px auto;
+    padding:100px 0px;
 }
 `
+export default GlobalStyle

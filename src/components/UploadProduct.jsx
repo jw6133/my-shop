@@ -10,12 +10,18 @@ function UploadProduct() { //async : 통신할 때 사용.
     const [error,setError]= useState(null);
     const fileref = useRef();
 
+    const colors=[
+        '#f6d365','#d4fc79','#a1c4fd','#f5576c','#30cfd0',
+        '#cd9cf2','#6a11cb','#f5efef','#3cba92','#434343'
+    ]
+
     const [product, setProduct] = useState({
         title: '',
         price: '',
         option : '',
         category : '',
         discription : '',
+        colors:[],
     })//모든 상품의 상태를 빈 문자열로 초기화
 
     const productInfoChange = (e)=>{
@@ -25,6 +31,16 @@ function UploadProduct() { //async : 통신할 때 사용.
         }else{
             setProduct((prev)=>({...prev,[name]:value}))
         }
+    }
+
+    const colorPicker=(color)=>{
+        setProduct((prev)=>({
+            ...prev,colors:prev.colors.includes(color)? 
+            prev.colors :[...prev.colors,color]}))
+    }
+
+    const removeColor = (colorRemove)=>{
+        setProduct((prev)=>({...prev,colors:prev.colors.filter(color=> color !== colorRemove)}))
     }
 
     const uploadSubmit = async (e) => {
@@ -43,6 +59,7 @@ function UploadProduct() { //async : 통신할 때 사용.
                 option : '',
                 category : '',
                 discription : '',
+                colors : [],
             })
             if (fileref.current){
                 fileref.current.value='';
@@ -90,13 +107,21 @@ function UploadProduct() { //async : 통신할 때 사용.
                 />
                 {/* 가격 */}
 
-                <input
+                {/* <input
                 type='text'
                 name='category'
                 placeholder='상품 분류'
                 value={product.category}
                 onChange={productInfoChange}
-                />
+                /> */}
+                <select name='category' value={product.category} onChange={productInfoChange}>
+                    <option value=''>분류 선택</option>
+                    <option value='top'>상의</option>
+                    <option value='bottom'>하의</option>
+                    <option value='outer'>아우터</option>
+                    <option value='accessory'>악세사리</option>
+                    <option value='etc'>기타</option>
+                </select>
                 {/* 분류 */}              
 
                 <input
@@ -108,11 +133,29 @@ function UploadProduct() { //async : 통신할 때 사용.
                 />
                 {/* 상품 옵션 */}
 
+                <ColorChip>
+                    {colors.map((color,index)=>(
+                        <div className='colorChipItem' key={index}
+                        style={{backgroundColor:color}}
+                        onClick={()=>colorPicker(color)}
+                        ></div>
+                    ))}
+                </ColorChip>
+
+                <ColorSelect>
+                        {product.colors.map((color,index)=>(
+                            <div key={index}
+                            style={{backgroundColor:color}}>{color}
+                            <button onClick={()=>removeColor(color)}>x</button>
+                            </div>
+                        ))}
+                </ColorSelect>
+
                 <input
                 type='text'
                 name='discription'
                 placeholder='상품 설명 입력'
-                value={product.description}
+                value={product.discription}
                 onChange={productInfoChange}
                 />
                 {/* 상품 정보 */}
@@ -177,5 +220,30 @@ const FormContainer = styled.div`
                 background:rgba(255,183,245,1);
             }
         }
+    }
+`
+
+const ColorChip = styled.div`
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+    .colorChipItem{
+        width:20px;
+        height:20px;
+        cursor: pointer;
+    }
+`
+const ColorSelect = styled.div`
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+    div{
+        width:100px;
+        height:30px;
+        color:#ffffff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
     }
 `

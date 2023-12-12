@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import { getProducts } from '../api/firebase';
+import Products from '../components/Products';
 
 function AllProduct() {
     const [product,setProduct]=useState([]);
@@ -15,13 +16,14 @@ function AllProduct() {
         fetchProducts()
     },[])
     return (
-        <div>
-            {product&&product.map(el=>(
+        <div className='container'>
+            {/* {product&&product.map(el=>(
                 <div key={el.id}>
                     <img src={el.image}/>
                     <p>{el.title}</p>
                 </div>
-            ))}
+            ))} */}
+            <Products products ={product} />
         </div>
     )
 }
