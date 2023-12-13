@@ -5,11 +5,14 @@ import { AuthContextProvider } from './context/AuthContext';
 import { GoogleAuthProvider } from 'firebase/auth';
 import AllProduct from './pages/AllProduct';
 import GlobalStyle from './style/GlobalStyle';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 //outlet 상위 경로에서 하위경로 요소 구성
 function App() {
   return (
     <>
+    <QueryClientProvider client={queryClient}>
     <AuthContextProvider>
       <GlobalStyle/>
       <Nav/>
@@ -19,6 +22,7 @@ function App() {
       {/* <AllProduct/> */}
       <Outlet/>
     </AuthContextProvider>
+    </QueryClientProvider>
     </>
   );
 }

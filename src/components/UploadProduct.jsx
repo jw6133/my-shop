@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { uploadImg } from '../api/imgupload';
 import { addProducts } from '../api/firebase';
 import styled from 'styled-components';
+import { CategoryContext } from '../context/CategoryContext';
 
 function UploadProduct() { //async : 통신할 때 사용.
     const [file, setFile] = useState(null);
@@ -9,6 +10,8 @@ function UploadProduct() { //async : 통신할 때 사용.
     const [success,setSuccess] = useState(null);
     const [error,setError]= useState(null);
     const fileref = useRef();
+    const {categoryList} = useContext(CategoryContext);
+    console.log(categoryList)
 
     const colors=[
         '#f6d365','#d4fc79','#a1c4fd','#f5576c','#30cfd0',
@@ -114,13 +117,19 @@ function UploadProduct() { //async : 통신할 때 사용.
                 value={product.category}
                 onChange={productInfoChange}
                 /> */}
-                <select name='category' value={product.category} onChange={productInfoChange}>
+                {/* <select name='category' value={product.category} onChange={productInfoChange}>
                     <option value=''>분류 선택</option>
                     <option value='top'>상의</option>
                     <option value='bottom'>하의</option>
                     <option value='outer'>아우터</option>
                     <option value='accessory'>악세사리</option>
                     <option value='etc'>기타</option>
+                </select> */}
+                <select name='category' value={product.category} onChange={productInfoChange}>
+                    <option value=''>분류 선택</option>
+                    {categoryList.map((el,index)=>(
+                        <option key={index} value={el}>{el}</option>
+                    ))}
                 </select>
                 {/* 분류 */}              
 

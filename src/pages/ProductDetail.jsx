@@ -1,17 +1,28 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import UseCart from '../context/UseCart';
 
 function ProductDetail() {
+    const {addItemCart} = UseCart();
     const state=useLocation().state; //useLocation : Navigate로 받아온거
     const {id,image,price,option,colors,discription,category,title} =state; //파라미터값으로 넘어오기
     const setOpt=option.split(',').map((option)=>option.trim());
     const [selected,setSelected]=useState(setOpt&&setOpt[0]);
+    const [success,setSuccess]=useState(); //장바구니 아이템 전송 여부값
     console.log(selected);
     const selectOpt = (e)=>{
         console.log(selected);
         setSelected(e.target.value);
-        
+    }
+    const cartItem =()=>{
+        const product={id,image,title,price,option:selected,quantity : 1}
+        //quantity : 수량
+        addItemCart.mutate(product,{
+            onSuccess:()=>{
+                setSuccess('장바구니에 아이템이 추가되었습니다')
+            }
+        })
     }
     return (
         <div className='container'>
@@ -36,8 +47,12 @@ function ProductDetail() {
                             ))}
                         </select>
                     </div>
-                    
                 </div>
+                <div className='detailBtns'>
+                    <button className='cartBtn' onClick={cartItem}>장바구니 담기</button>
+                    <button className='buyBtn'>구매하기</button>
+                </div>
+                {success&&<p>{success}</p>}
             </DetailPage>
         </div>
     )

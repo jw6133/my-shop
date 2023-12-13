@@ -5,6 +5,7 @@ import { googleLogOut, googleLogin, onUserState } from '../api/firebase';
 import { useState } from 'react';
 import UserData from './UserData';
 import { LuPencil } from "react-icons/lu";
+import MainMenu from './MainMenu';
 
 function Nav() {
     const [user,setUser] = useState();
@@ -22,12 +23,12 @@ function Nav() {
             setUser(user);
         })
     },[])
-    console.log(user)
+    // console.log(user)
 
     return (
         <HeaderContainer>
             <h1><Link to='/'>shop</Link></h1>
-
+            <MainMenu/>
             <div className='userWrap'>
                 {user&&user.isAdmin&&(
                     <Link to='/product/upload' className='uploadBtn'><LuPencil /></Link>
