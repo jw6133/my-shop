@@ -12,6 +12,7 @@ import ProductDetail from './pages/ProductDetail';
 import UploadProduct from './components/UploadProduct';
 import { useAuthContext } from './context/AuthContext';
 import CategoryPage from './pages/CategoryPage';
+import Search from './pages/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 //관리자 인증(조건에 하나라도 만족하지 못하면 페이지를 이동할 수 없게 하고 강제로 홈으로 이동)
@@ -32,6 +33,7 @@ const routes = createBrowserRouter([
       {path : '/cart',element:<MyCart/>},
       {path: '/products/detail/:id',element:<ProductDetail/>},
       {path : '/products/:category',element:<CategoryPage/>},
+      {path : '/search', element:<Search/>},
       {
         path : 'product/upload',
         element:

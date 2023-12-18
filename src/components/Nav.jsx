@@ -30,6 +30,7 @@ function Nav() {
             <h1><Link to='/'>shop</Link></h1>
             <MainMenu/>
             <div className='userWrap'>
+                <Link to='/search'>검색</Link>
                 {user&&user.isAdmin&&(
                     <Link to='/product/upload' className='uploadBtn'><LuPencil /></Link>
                 )}
