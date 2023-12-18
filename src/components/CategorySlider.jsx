@@ -21,7 +21,7 @@ const CategorySlider = ({imgs}) => {
                 modules={[Autoplay,EffectFade]}
                 effect={'fade'}
             >
-                {imgs.map((img,index)=>(
+                {imgs&&imgs.map((img,index)=>(
                     <SwiperSlide key={index}>
                         <img src={img}/>
                     </SwiperSlide>

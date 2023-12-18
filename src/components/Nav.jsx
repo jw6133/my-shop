@@ -28,6 +28,7 @@ function Nav() {
     return (
         <HeaderContainer>
             <h1><Link to='/'>shop</Link></h1>
+            <Link to ='/board/qna'>qna</Link>
             <MainMenu/>
             <div className='userWrap'>
                 <Link to='/search'>검색</Link>

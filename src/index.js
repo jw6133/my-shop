@@ -13,6 +13,9 @@ import UploadProduct from './components/UploadProduct';
 import { useAuthContext } from './context/AuthContext';
 import CategoryPage from './pages/CategoryPage';
 import Search from './pages/Search';
+import Write from './pages/Write';
+import Qna from './pages/Qna';
+import BoardDetailPage from './pages/BoardDetailPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 //관리자 인증(조건에 하나라도 만족하지 못하면 페이지를 이동할 수 없게 하고 강제로 홈으로 이동)
@@ -31,6 +34,9 @@ const routes = createBrowserRouter([
 
     children : [
       {path : '/cart',element:<MyCart/>},
+      {path : '/board/write',element:<Write/>},
+      {path : '/board/qna',element:<Qna/>},
+      {path : '/board/qna/:id',element:<BoardDetailPage/>},
       {path: '/products/detail/:id',element:<ProductDetail/>},
       {path : '/products/:category',element:<CategoryPage/>},
       {path : '/search', element:<Search/>},
