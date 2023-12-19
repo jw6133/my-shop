@@ -20,7 +20,11 @@ function MainMenu() {
 
 export default MainMenu
 const MenuList = styled.ul`
+    position: relative;
     display:flex;
     flex-direction:row;
     gap : 20%;
+    li{
+        color:white;
+    }
 `

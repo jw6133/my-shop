@@ -29,7 +29,9 @@ function Nav() {
         <HeaderContainer>
             <h1><Link to='/'>shop</Link></h1>
             <Link to ='/board/qna'>qna</Link>
+            <span className='mainWrapper'>
             <MainMenu/>
+            </span>
             <div className='userWrap'>
                 <Link to='/search'>검색</Link>
                 {user&&user.isAdmin&&(
@@ -52,11 +54,21 @@ function Nav() {
 }
 
 const HeaderContainer = styled.header`
+    background:gray;
+    color: black;
     display:flex;
     align-items:center;
     padding:12px;
     gap:24px;
     border-bottom:solid 1px rgba(0,0,0,0.1);
+    position: relative;
+
+    .mainWrapper{
+        position: relative;
+        left:25%;
+        font-size:24px;
+        font-weight:bold;
+    }
 
     .userWrap{
         display:flex;

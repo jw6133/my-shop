@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import UseCart from '../context/UseCart';
+import ProductReview from '../components/ProductReview';
+import { useQuery } from '@tanstack/react-query';
+import { getReview } from '../api/firebase';
 
 function ProductDetail() {
     const {addItemCart} = UseCart();
@@ -10,7 +13,7 @@ function ProductDetail() {
     const setOpt=option.split(',').map((option)=>option.trim());
     const [selected,setSelected]=useState(setOpt&&setOpt[0]);
     const [success,setSuccess]=useState(); //장바구니 아이템 전송 여부값
-    console.log(selected);
+    // console.log(selected);
     const selectOpt = (e)=>{
         console.log(selected);
         setSelected(e.target.value);
@@ -47,13 +50,15 @@ function ProductDetail() {
                             ))}
                         </select>
                     </div>
+                    <div className='detailBtns'>
+                        <button className='cartBtn' onClick={cartItem}>장바구니 담기</button>
+                        <button className='buyBtn'>즉시 구매</button>
+                    </div>
                 </div>
-                <div className='detailBtns'>
-                    <button className='cartBtn' onClick={cartItem}>장바구니 담기</button>
-                    <button className='buyBtn'>구매하기</button>
-                </div>
+                
                 {success&&<p>{success}</p>}
             </DetailPage>
+            <ProductReview productId={id}/>
         </div>
     )
 }
@@ -63,7 +68,7 @@ export default ProductDetail
 const DetailPage=styled.div`
     width:100%;
     display:flex;
-    gap:40px;
+    gap:20px;
     .detailImg{
         max-width:400px;
         img{
@@ -87,6 +92,23 @@ const DetailPage=styled.div`
             display:flex;
             align-items:center;
             gap:20px;
+        }
+    }
+    .detailBtns{
+        display:flex;
+        gap:5px;
+        .cartBtn{
+            width:350px;
+            height:50px;
+            background:black;
+            color:white;
+        }
+        .buyBtn{
+            width:100px;
+            height:50px;
+            background:white;
+            color:black;
+            border:solid 1px black;
         }
     }
 `

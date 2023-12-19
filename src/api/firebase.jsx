@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut} from "firebase/auth";
 import {get,set,getDatabase,ref,remove} from 'firebase/database';
+import { object } from "prop-types";
 import {v4 as uuid} from 'uuid';
 
 const firebaseConfig={
@@ -112,7 +113,7 @@ export async function getCart(userId){
         const snapshot = await(get(ref(database,`cart/${userId}`)));
         if(snapshot.exists()){
             const item = snapshot.val();
-            console.log(Object.values(item))
+            // console.log(Object.values(item))
             return Object.values(item);
         }else{
             return []
@@ -198,4 +199,65 @@ export async function getBoard(){
         return []
 
     })
+}
+
+//게시글에 댓글 저장하기
+export async function addComments(boardId,user,text){
+    const id =uuid();
+    return set(ref(database,`/board/${boardId}/comments/${id}`),{
+        id,
+        user,
+        text
+    })
+}
+
+//게시글에 댓글 출력하기
+export async function getComments(boardId){
+    return get(ref(database,`/board/${boardId}/comments`))
+    .then((snapshot)=>{
+        if(snapshot.exists()){
+            return Object.values(snapshot.val())
+        }
+        return [];
+    })
+}
+
+//리뷰 글 저장
+export async function addReview(productId,user,text){
+    const reviewId = uuid();
+    const reviewRef = ref(database,`review/${productId}/${reviewId}`);
+
+    try{
+       await set(reviewRef,{
+        id:reviewId,
+        user:user,
+        text:text,
+       })
+       return reviewId
+    }catch(error){
+        console.error(error);
+    }
+}
+
+export async function getReview(productId){
+    // return get(ref(database,`review/${productId}`))
+    // .then((snapshot)=>{
+    //     if(snapshot.exists()){
+    //         return Object.values(snapshot.val())
+    //     }
+    //     return [];
+    // })
+
+    const reviewRef = ref(database,`review/${productId}`);
+    try{
+        const snapshot=await get(reviewRef);
+        if(snapshot.exists()){
+            return Object.values(snapshot.val());
+        }
+        else{
+            return [];
+        }
+    }catch(error){
+        console.error(error);
+    }
 }

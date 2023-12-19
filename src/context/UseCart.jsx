@@ -5,7 +5,7 @@ import { useAuthContext } from "./AuthContext";
 
 export default function useCart(){
     const {uid} = useAuthContext();
-    console.log(uid);
+    // console.log(uid);
 
     //useQueryClient : React에서 데이터를 가져오고 업데이트하는 라이브러리의 일종
     //yarn add @tanstack/react-query
