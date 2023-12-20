@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import UseCart from '../context/UseCart';
 import ProductReview from '../components/ProductReview';
 import { useQuery } from '@tanstack/react-query';
-import { getReview } from '../api/firebase';
+import { formatCurrency, getReview } from '../api/firebase';
 
 function ProductDetail() {
     const {addItemCart} = UseCart();
@@ -36,7 +36,7 @@ function ProductDetail() {
                 <div className='detailText'>
                     <h3>{title}</h3>
                     <p className='price'>
-                        가격 : <span>{price}</span>
+                        가격 : <span>{formatCurrency(price)}</span>
                     </p>
                     <p className='discription'>
                         설명 : <span>{discription}</span>

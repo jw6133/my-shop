@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut} from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from "firebase/auth";
 import {get,set,getDatabase,ref,remove} from 'firebase/database';
-import { object } from "prop-types";
+import { func, object } from "prop-types";
 import {v4 as uuid} from 'uuid';
 
 const firebaseConfig={
@@ -83,10 +83,29 @@ async function adminUser(user){
         console.error(error);
     }
 }
+//상품 가격 변환 함수
+export function formatCurrency(item){
+    const number = parseInt(item)
+    return number.toLocaleString('ko-KR')
+    //지역에 맞는 단위를 자동으로 구분해서 콤마를 찍어줌
+    /*
+    ko-KR : 한국
+    en-US : 미국
+    cn-CA : 캐나다
+    ja-JP : 일본
+    zh-CN : 중국
+    */
+}
 
+//상품을 db에 업로드
 export async function addProducts(product,image){
     //uuid = 식별자를 만들어주는 라이브러리
     //숫자와 영문으로 조합된 식별자 코드를 부여해서 고유값으로 사용하는 라이브러리
+    /*
+    데이터베이스에 데이터 저장 시 원시형태의 값으로 유지해서 저장하는게 가장 일반적이고 안전
+    우선적으로 변환하여 저장하면 지역이 바뀌는 경우 재변환이 필요한 경우가 생김
+    그렇기에 원시 형태로 저장 후 필요할떄마다 필요한 방법으로 변환하는 것이 재사용성과 유연성에 더 알맞다
+    */
     const id = uuid()
     return set(ref(database, `products/${id}`),{
         ...product,
@@ -257,6 +276,35 @@ export async function getReview(productId){
         else{
             return [];
         }
+    }catch(error){
+        console.error(error);
+    }
+}
+
+//이메일 회원가입 저장
+export async function joinEmail(email, password, name){
+    const auth = getAuth()//저장할 사용자 인증폼을 불러옴
+    try{
+        const userData= await createUserWithEmailAndPassword(auth,email,password);
+        //createUserWithEmailAndPassword:사용자 정보 이메일 패스워드만 저장가능
+        //추가로 저장시에는 우회해야함
+        
+        const user = userData.user;
+        await updateProfile(user,{
+            displayName:name
+        })
+        await signOut(auth);
+        return {success:true};
+    }catch(error){
+        console.log({error:error.code});
+        return {error: error.code}//에러가 나는 경우 코드를 반환
+    }
+}
+//로그인
+export async function loginEmail(email,password){
+    try{
+        const userData = await signInWithEmailAndPassword(auth,email,password)
+        return userData.user
     }catch(error){
         console.error(error);
     }
