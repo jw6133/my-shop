@@ -24,7 +24,7 @@ const MenuList = styled.ul`
     display:flex;
     flex-direction:row;
     gap : 20%;
-    li{
+    a{
         color:white;
     }
 `

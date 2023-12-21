@@ -56,7 +56,7 @@ function Nav() {
 }
 
 const HeaderContainer = styled.header`
-    background:gray;
+    background:#A0D468;
     color: black;
     display:flex;
     align-items:center;
@@ -66,8 +66,7 @@ const HeaderContainer = styled.header`
     position: relative;
 
     .mainWrapper{
-        position: relative;
-        left:25%;
+        text-align:center;
         font-size:24px;
         font-weight:bold;
     }

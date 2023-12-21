@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@font-face {
+	font-family: "Doodle";
+	font-weight:normal;
+  src: url(../src/fonts/RubikDoodleShadow-Regular.ttf);
+}
+@font-face {
+  font-family: "Gamja";
+  src: url(../src/fonts/GamjaFlower-Regular.ttf);
+}
+body{
+  font-family: "Gamja";
+  background-image: url(../src/photos/turtleBgTest.png);
+  background-repeat: repeat;
+  font-size: 24px;;
+}
+
+.mainLogo{
+	font-family:"Doodle";
+	font-size:60px;
+	text-align: center;
+  background-color: white;
+  padding-bottom: 10px;
+}
+.belowLogo{
+  padding-top: 10px;
+  text-align: center;
+}
+.mainCategory{
+  color: white;
+}
