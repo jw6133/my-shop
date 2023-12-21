@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/my-shop/static/css/main.f727bf13.css",
+    "main.js": "/my-shop/static/js/main.e54ebcba.js",
+    "static/js/787.df9d0b6c.chunk.js": "/my-shop/static/js/787.df9d0b6c.chunk.js",
+    "static/media/GamjaFlower-Regular.ttf": "/my-shop/static/media/GamjaFlower-Regular.317f969e43bbf7cb06a0.ttf",
+    "static/media/RubikDoodleShadow-Regular.ttf": "/my-shop/static/media/RubikDoodleShadow-Regular.e0707082a5c4954d7fdd.ttf",
+    "static/media/turtleBgTest.png": "/my-shop/static/media/turtleBgTest.b206197bd38e575a8243.png",
+    "index.html": "/my-shop/index.html",
+    "main.f727bf13.css.map": "/my-shop/static/css/main.f727bf13.css.map",
+    "main.e54ebcba.js.map": "/my-shop/static/js/main.e54ebcba.js.map",
+    "787.df9d0b6c.chunk.js.map": "/my-shop/static/js/787.df9d0b6c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f727bf13.css",
+    "static/js/main.e54ebcba.js"
+  ]
+}
